@@ -139,7 +139,6 @@ def read_numbers(path):
                     numbers.append(num)
                     lines_read += 1
                 except ValueError:
-                    # Raise again so outer except catches it
                     raise ValueError("Invalid number on a line")
     except FileNotFoundError:
         return ("error", f"File not found: {path}", lines_read)
@@ -150,9 +149,7 @@ def read_numbers(path):
     except Exception as e:
         return ("error", f"Unexpected error: {e}", lines_read)
     else:
-        # Runs only if no exception occurred
         total = sum(numbers)
         return ("ok", total, lines_read)
     finally:
-        # Always runs
         print("Done reading")
