@@ -124,3 +124,35 @@ Explanation:
 =================================================
 
 """
+def read_numbers(path):
+    lines_read = 0
+    total = 0.0
+    try:
+        with open(path, "r") as f:
+            numbers = []
+            for line in f:
+                line = line.strip()
+                if line == "":
+                    continue
+                try:
+                    num = float(line)
+                    numbers.append(num)
+                    lines_read += 1
+                except ValueError:
+                    # Raise again so outer except catches it
+                    raise ValueError("Invalid number on a line")
+    except FileNotFoundError:
+        return ("error", f"File not found: {path}", lines_read)
+    except PermissionError:
+        return ("error", f"Permission denied: {path}", lines_read)
+    except ValueError as ve:
+        return ("error", str(ve), lines_read)
+    except Exception as e:
+        return ("error", f"Unexpected error: {e}", lines_read)
+    else:
+        # Runs only if no exception occurred
+        total = sum(numbers)
+        return ("ok", total, lines_read)
+    finally:
+        # Always runs
+        print("Done reading")
