@@ -65,11 +65,9 @@ Calculation finished
 """
 def safe_divide(a, b):
     try:
-        # Convert inputs to float (may raise ValueError)
         x = float(a)
         y = float(b)
 
-        # Perform division (may raise ZeroDivisionError)
         result = x / y
 
     except ValueError:
@@ -77,11 +75,8 @@ def safe_divide(a, b):
     except ZeroDivisionError:
         return ("error", "Cannot divide by zero")
     except Exception as e:
-        # Catch any other unexpected bug
         return ("error", f"Unexpected error: {e}")
     else:
-        # Success path
         return ("ok", result)
     finally:
-        # Always runs
         print("Calculation finished")
